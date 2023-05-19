@@ -24,3 +24,5 @@ linux/
 macos/
 web/
 windows/
+.flutter-plugins
+.flutter-plugins-dependencies
