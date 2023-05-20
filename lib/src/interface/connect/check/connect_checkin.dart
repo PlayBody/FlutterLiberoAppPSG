@@ -62,6 +62,7 @@ class _ConnectCheckIn extends State<ConnectCheckIn> {
 
   Future<void> checkIn() async {
     if (organ!.isNoReserve != constCheckinTypeNone && selReserveId == null) {
+      // Please select your reservation details.
       Dialogs().infoDialog(context, '予約内容を選択してください。');
       return;
     }
@@ -72,6 +73,7 @@ class _ConnectCheckIn extends State<ConnectCheckIn> {
     });
 
     if (sumTicket != organ!.checkTicketConsumtion) {
+      // Not enough tickets.
       Dialogs().infoDialog(context, 'チケット数が足りません。');
       return;
     }
@@ -81,6 +83,7 @@ class _ConnectCheckIn extends State<ConnectCheckIn> {
     //   return;
     // }
 
+    // Would you like to enter?
     bool conf = await Dialogs().confirmDialog(context, '入店しますか？');
     if (!conf) return;
 
@@ -96,6 +99,7 @@ class _ConnectCheckIn extends State<ConnectCheckIn> {
         selReserveId == null ? '0' : selReserveId!,
         selectMenus.isEmpty ? '' : selectMenus.join(','));
     if (isAddStamp) {
+      // Added one stamp.
       await Dialogs().waitDialog(context, '1つのスタンプが追加されました。');
     }
 

@@ -109,7 +109,7 @@ class _ConnectLogin extends State<ConnectLogin> {
                         SizedBox(height: 24),
                         TextButton(
                           child: Text(
-                            'パスワードを忘れましたか？',
+                            'パスワードを忘れましたか？', // Forgot your Password?
                             style:
                                 TextStyle(color: Colors.black.withOpacity(0.5)),
                           ),

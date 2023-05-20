@@ -91,7 +91,7 @@ class _PasswordReset extends State<PasswordReset> {
           ),
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('images/login_back.jpg'),
+                  image: AssetImage('images/shop_login_back.jpg'),
                   fit: BoxFit.cover)),
         ));
   }

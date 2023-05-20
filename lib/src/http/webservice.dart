@@ -16,6 +16,7 @@ class Webservice {
     //       ((X509Certificate cert, String host, int port) =>
     //           AppConst.trustSelfSigned);
     // IOClient ioClient = new IOClient(httpClient);
+    //print('Req: $url : $param');
     bool conf = false;
     do {
       try {
@@ -26,11 +27,14 @@ class Webservice {
             },
             body: param);
         if (response.statusCode == 200) {
+          //print('Res: ${response.body}');
           return jsonDecode(response.body);
         } else {
+          //print('Res: $errServerString');
           conf = await Dialogs().retryOrExit(context, errServerString);
         }
       } catch (e) {
+        // print('Res: $errNetworkString');
         conf = await Dialogs().retryOrExit(context, errNetworkString);
       }
     } while (conf);

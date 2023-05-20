@@ -76,7 +76,7 @@ class _ConnectCheck extends State<ConnectCheck> {
       String organCode = '';
       if (_format == 'qrcode') {
         if (!isQrCode(_code)) {
-          err = "不正確なQRコードです。";
+          err = "不正確なQRコードです。"; //Incorrect QR Code
         }
         List<String> _data = _code!.split('!');
         organCode = _data[3];
