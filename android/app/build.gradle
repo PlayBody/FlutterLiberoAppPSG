@@ -50,15 +50,22 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 24
         targetSdkVersion 31
-        versionCode 1
+        versionCode 16
         versionName '1.0.2'
     }
-
+    signingConfigs {
+        release {
+            storeFile file("libero.jks")
+            keyAlias "my-key-alias"
+            storePassword "Kkni1019!"
+            keyPassword "Kkni1019!"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }
