@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1030504326049-6qrh3aeqm1mbqolqnd6s31dv0oerjt30.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1030504326049-6qrh3aeqm1mbqolqnd6s31dv0oerjt30</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1030504326049-1bulhv2obq0tehtdkivjpqch7odc6dgd.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAZ7hMgw54uBeLQiLLL3FdhoMg9247C1Zk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1030504326049</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>cloud.connect.libero</string>
+	<key>PROJECT_ID</key>
+	<string>connect-326003</string>
+	<key>STORAGE_BUCKET</key>
+	<string>connect-326003.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1030504326049:ios:d9cbcdd81eea75ab0921e0</string>
+	<key>DATABASE_URL</key>
+	<string>https://connect-326003-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

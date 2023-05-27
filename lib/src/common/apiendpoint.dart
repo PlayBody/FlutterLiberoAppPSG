@@ -1,5 +1,5 @@
-String apiBase = 'https://www.visit-pos.com/cloud_devotion';
-//String apiBase = 'http://192.168.111.56/cloud_devotion';
+// String apiBase = 'https://www.visit-pos.com/cloud_devotion';
+String apiBase = 'http://65.109.96.229:82';
 
 String organImageUrl = apiBase + '/assets/images/organs/';
 String ticketImageUrl = apiBase + '/assets/images/tickets/';
@@ -30,7 +30,8 @@ String apiUploadMessageAttachFileUrl =
 
 String apiLoadCouponListUrl = apiBase + '/apicoupons/loadCouponList';
 String apiLoadUserCouponsUrl = apiBase + '/apicoupons/loadUserCouponList';
-String apiUpdateUserCouponUseFlagUrl = apiBase + '/apicoupons/updateUserCouponUseFlag';
+String apiUpdateUserCouponUseFlagUrl =
+    apiBase + '/apicoupons/updateUserCouponUseFlag';
 String apiDeleteCouponInfoUrl = apiBase + '/apicoupons/deleteCouponInfo';
 String apiLoadCouponInfoUrl = apiBase + '/apicoupons/getUserCouponInfo';
 String apiSaveCouponUrl = apiBase + '/apicoupons/saveCoupon';

@@ -4,6 +4,8 @@ const String APPCOMANYID = '4';
 const String APPDOMAIN = 'libero-school.com';
 const String APPCOMPANYTITLE = 'リベロエンターテイメント';
 
+const int constTestApi = 1;
+
 // const String RESERVE_REQUEST = '1';
 // const String RESERVE_APPLY = '2';
 // const String RESERVE_REJECT = '3';
