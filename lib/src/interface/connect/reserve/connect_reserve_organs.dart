@@ -2,10 +2,12 @@ import 'package:libero/src/common/const.dart';
 import 'package:flutter/material.dart';
 
 import 'package:libero/src/common/apiendpoint.dart';
+import 'package:libero/src/interface/connect/reserve/connect_reserve_menu.dart';
 import 'package:libero/src/interface/connect/reserve/reserve_multiuser.dart';
 import 'package:libero/src/model/organmodel.dart';
 import 'package:libero/src/common/bussiness/organs.dart';
 import 'package:libero/src/interface/component/form/main_form.dart';
+import '../../../common/globals.dart' as globals;
 
 class ConnectReserveOrgan extends StatefulWidget {
   const ConnectReserveOrgan({Key? key}) : super(key: key);
@@ -70,7 +72,16 @@ class _ConnectReserveOrgan extends State<ConnectReserveOrgan> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) {
-          return ReserveMultiUser(organId: organ.organId);
+          // return ReserveMultiUser(organId: organ.organId);
+
+          globals.selStaffType = 0;
+          globals.menuSelectNumber = 1;
+          globals.reserveMultiUsers = [];
+          globals.connectReserveMenuList = [];
+          globals.reserveTime = 10;
+          globals.reserveUserCnt = 1;
+
+          return ConnectReserveMenus(organId: organ.organId);
         }));
       },
       child: Card(

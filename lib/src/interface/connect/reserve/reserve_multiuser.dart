@@ -35,6 +35,7 @@ class _ReserveMultiUser extends State<ReserveMultiUser> {
     if ((userCount > 1 && txtUser2Controller.text == '') ||
         (userCount > 2 && txtUser3Controller.text == '') ||
         (userCount > 3 && txtUser4Controller.text == '')) {
+      // Please enter your username.
       errMsg = 'ユーザー名を入力してください。';
       setState(() {});
       return;

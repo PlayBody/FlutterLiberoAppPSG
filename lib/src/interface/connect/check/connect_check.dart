@@ -81,10 +81,10 @@ class _ConnectCheck extends State<ConnectCheck> {
         List<String> _data = _code!.split('!');
         organCode = _data[3];
         if (!checkDomain(_data[2])) {
-          err = "このお店のアプリのQRコードではありません。";
+          err = "このお店のアプリのQRコードではありません。"; // It is not current shop's qr code.
         }
         if (!(await checkGPS(_data[3]))) {
-          err = "GPS認証に失敗しました。";
+          err = "GPS認証に失敗しました。"; // Gps authentication failed
         }
       } else {
         err = "不正確なQRコードです。";
