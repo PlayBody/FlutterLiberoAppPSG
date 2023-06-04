@@ -4,6 +4,7 @@ import 'package:libero/src/common/functions.dart';
 import 'package:libero/src/interface/component/button/default_buttons.dart';
 import 'package:libero/src/interface/component/form/main_form.dart';
 import 'package:libero/src/interface/component/text/header_text.dart';
+import 'package:libero/src/interface/connect/reserve/reserve_date_first.dart';
 import 'package:libero/src/interface/connect/reserve/reserve_staff.dart';
 import 'package:flutter/material.dart';
 
@@ -264,15 +265,21 @@ class _ConnectReserveMenus extends State<ConnectReserveMenus> {
       Dialogs().infoDialog(context, '予約メニューを選択してください。');
       return;
     }
-    if (_menuNumber > globals.reserveMultiUsers.length) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return ReserveStaff(organId: widget.organId);
-      }));
-    } else {
-      globals.menuSelectNumber = _menuNumber + 1;
-      Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return ConnectReserveMenus(organId: widget.organId);
-      }));
-    }
+
+    globals.selStaffType = 0;
+
+    Navigator.push(context, MaterialPageRoute(builder: (_) {
+      return ReserveDateFirst(organId: widget.organId);
+    }));
+    // if (_menuNumber > globals.reserveMultiUsers.length) {
+    //   Navigator.push(context, MaterialPageRoute(builder: (_) {
+    //     return ReserveStaff(organId: widget.organId);
+    //   }));
+    // } else {
+    //   globals.menuSelectNumber = _menuNumber + 1;
+    //   Navigator.push(context, MaterialPageRoute(builder: (_) {
+    //     return ConnectReserveMenus(organId: widget.organId);
+    //   }));
+    // }
   }
 }
