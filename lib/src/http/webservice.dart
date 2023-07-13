@@ -35,13 +35,13 @@ class Webservice {
           return jsonDecode(response.body);
         } else {
           if (constTestApi == 1) {
-            print('Result: $errServerString');
+            print('Result: ${response.body}');
           }
           conf = await Dialogs().retryOrExit(context, errServerString);
         }
       } catch (e) {
         if (constTestApi == 1) {
-          print('Result: $errNetworkString');
+          print('Result: ${e}');
         }
         conf = await Dialogs().retryOrExit(context, errNetworkString);
       }

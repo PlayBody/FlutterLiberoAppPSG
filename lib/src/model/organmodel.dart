@@ -1,7 +1,10 @@
+import 'package:libero/src/common/const.dart';
+
 class OrganModel {
   final String organId;
   final String organName;
   final String isNoReserve;
+  final String isNoReserveType;
   final String? organAddress;
   final String? organPhone;
   final String? organComment;
@@ -21,6 +24,7 @@ class OrganModel {
       {required this.organId,
       required this.organName,
       required this.isNoReserve,
+      required this.isNoReserveType,
       this.organAddress,
       this.organPhone,
       this.organComment,
@@ -43,6 +47,9 @@ class OrganModel {
         isNoReserve: json['is_no_reserve'] == null
             ? '0'
             : json['is_no_reserve'].toString(),
+        isNoReserveType: json['is_no_reserve_type'] == null 
+            ? constCheckinReserveRiRa 
+            : json['is_no_reserve_type'].toString(),
         organAddress: json['address'] == null ? '' : json['address'],
         organPhone: json['phone'],
         organComment: json['comment'] ?? '',
