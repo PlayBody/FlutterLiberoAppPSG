@@ -11,7 +11,8 @@ import '../../../common/globals.dart' as globals;
 
 class ReserveStaff extends StatefulWidget {
   final String organId;
-  const ReserveStaff({required this.organId, Key? key}) : super(key: key);
+  final String isNoReserveType;
+  const ReserveStaff({required this.organId, required this.isNoReserveType, Key? key}) : super(key: key);
 
   @override
   _ReserveStaff createState() => _ReserveStaff();
@@ -81,7 +82,7 @@ class _ReserveStaff extends State<ReserveStaff> {
     globals.selStaffType = selectSex;
 
     Navigator.push(context, MaterialPageRoute(builder: (_) {
-      return ReserveDateFirst(organId: widget.organId, staffId: selectStaff);
+      return ReserveDateFirst(organId: widget.organId, isNoReserveType: widget.isNoReserveType, staffId: selectStaff);
     }));
   }
 

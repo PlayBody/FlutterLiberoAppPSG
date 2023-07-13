@@ -16,7 +16,8 @@ import 'connect_menu_view.dart';
 
 class ConnectReserveMenus extends StatefulWidget {
   final String organId;
-  const ConnectReserveMenus({required this.organId, Key? key})
+  final String isNoReserveType;
+  const ConnectReserveMenus({required this.organId, required this.isNoReserveType, Key? key})
       : super(key: key);
 
   @override
@@ -165,8 +166,8 @@ class _ConnectReserveMenus extends State<ConnectReserveMenus> {
                     ),
                     visualDensity: VisualDensity(vertical: -2),
                     elevation: 0,
-                    primary: Color(0xffffe6d7),
-                    onPrimary: Color(0xffec5a01)),
+                    backgroundColor: Color(0xffffe6d7),
+                    foregroundColor: Color(0xffec5a01)),
                 child: Text(
                   '詳 細',
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -266,20 +267,32 @@ class _ConnectReserveMenus extends State<ConnectReserveMenus> {
       return;
     }
 
-    globals.selStaffType = 0;
+    if(widget.isNoReserveType == constCheckinReserveRiRa){
 
-    Navigator.push(context, MaterialPageRoute(builder: (_) {
-      return ReserveDateFirst(organId: widget.organId);
-    }));
-    // if (_menuNumber > globals.reserveMultiUsers.length) {
-    //   Navigator.push(context, MaterialPageRoute(builder: (_) {
-    //     return ReserveStaff(organId: widget.organId);
-    //   }));
-    // } else {
-    //   globals.menuSelectNumber = _menuNumber + 1;
-    //   Navigator.push(context, MaterialPageRoute(builder: (_) {
-    //     return ConnectReserveMenus(organId: widget.organId);
-    //   }));
-    // }
+      if (_menuNumber > globals.reserveMultiUsers.length) {
+        Navigator.push(context, MaterialPageRoute(builder: (_) {
+          return ReserveStaff(
+            organId: widget.organId, 
+            isNoReserveType: widget.isNoReserveType,
+          );
+        }));
+      } else {
+        globals.menuSelectNumber = _menuNumber + 1;
+        Navigator.push(context, MaterialPageRoute(builder: (_) {
+          return ConnectReserveMenus(
+            organId: widget.organId,
+            isNoReserveType: widget.isNoReserveType,
+          );
+        }));
+      }
+    } else {
+      globals.selStaffType = 0;
+      Navigator.push(context, MaterialPageRoute(builder: (_) {
+        return ReserveDateFirst(
+          organId: widget.organId, 
+          isNoReserveType: widget.isNoReserveType,
+        );
+      }));
+    }
   }
 }

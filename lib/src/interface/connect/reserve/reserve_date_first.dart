@@ -1,5 +1,6 @@
 import 'package:libero/src/common/bussiness/organs.dart';
 import 'package:libero/src/common/bussiness/reserve.dart';
+import 'package:libero/src/common/const.dart';
 import 'package:libero/src/interface/component/form/main_form.dart';
 import 'package:libero/src/interface/component/text/label_text.dart';
 import 'package:libero/src/interface/connect/reserve/reserve_date_second.dart';
@@ -13,8 +14,9 @@ import '../../../common/globals.dart' as globals;
 
 class ReserveDateFirst extends StatefulWidget {
   final String organId;
+  final String isNoReserveType;
   final String? staffId;
-  const ReserveDateFirst({required this.organId, this.staffId, Key? key})
+  const ReserveDateFirst({required this.organId, required this.isNoReserveType, this.staffId, Key? key})
       : super(key: key);
 
   @override
@@ -53,7 +55,7 @@ class _ReserveDateFirst extends State<ReserveDateFirst> {
     if (organTime['from_time'] != null) organFromTime = organTime['from_time'];
     if (organTime['to_time'] != null) organToTime = organTime['to_time'];
     regions = await ClReserve().loadReserveConditions(
-        context, widget.organId, widget.staffId, _fromDate, _toDate, '60');
+        context, widget.organId, widget.staffId, _fromDate, _toDate, widget.isNoReserveType, '60');
     sfCalanderHeight = 30 *
             (int.parse(organToTime.split(':')[0]) -
                 int.parse(organFromTime.split(':')[0])) +
@@ -106,6 +108,7 @@ class _ReserveDateFirst extends State<ReserveDateFirst> {
     Navigator.push(context, MaterialPageRoute(builder: (_) {
       return ReserveDateSecond(
         organId: widget.organId,
+        isNoReserveType: widget.isNoReserveType,
         staffId: widget.staffId,
         selTime: _cell.date!,
       );
@@ -128,7 +131,9 @@ class _ReserveDateFirst extends State<ReserveDateFirst> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                   _getComments(),
-                  _getReserveComment(),
+                  widget.isNoReserveType == constCheckinReserveRiRa ? 
+                    _getReserveRiraComment() :
+                    _getReserveShiftComment() ,
                   _getDateView(),
                   SizedBox(height: 8),
                   _getCalandarContent()
@@ -158,7 +163,7 @@ class _ReserveDateFirst extends State<ReserveDateFirst> {
     );
   }
 
-  Widget _getReserveComment() {
+  Widget _getReserveRiraComment() {
     var commentStyle = TextStyle(fontSize: 12);
     return Container(
       padding: EdgeInsets.only(left: 40),
@@ -193,9 +198,35 @@ class _ReserveDateFirst extends State<ReserveDateFirst> {
           ),
           Row(
             children: [
-              Text('×', style: TextStyle(color: Colors.grey)),
+              Text(' X', style: TextStyle(color: Colors.grey)),
               SizedBox(width: 4),
-              Text('予約できません。')
+              Text('予約できません。', style: commentStyle)
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  
+  Widget _getReserveShiftComment() {
+    var commentStyle = TextStyle(fontSize: 12);
+    return Container(
+      padding: EdgeInsets.only(left: 40),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text('〇', style: TextStyle(color: Colors.red)),
+              SizedBox(width: 4),
+              Text('空きがあります。', style: commentStyle)
+            ],
+          ),
+          Row(
+            children: [
+              Text(' X', style: TextStyle(color: Colors.grey)),
+              SizedBox(width: 4),
+              Text('空きがありません。', style: commentStyle)
             ],
           )
         ],

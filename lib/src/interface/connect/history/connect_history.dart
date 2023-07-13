@@ -45,7 +45,7 @@ class _ConnectHistory extends State<ConnectHistory> {
   Future<void> pushReserv(OrderModel item) async {
     globals.connectReserveMenuList = [];
     Navigator.push(context, MaterialPageRoute(builder: (_) {
-      return ReserveMultiUser(organId: item.organId);
+      return ReserveMultiUser(organId: item.organId, isNoReserveType: constCheckinReserveRiRa,);
     }));
   }
 

@@ -38,3 +38,6 @@ const String ORDER_STATUS_TABLE_COMPLETE = '8';
 String constCheckinTypeNone = '0';
 String constCheckinTypeBoth = '1';
 String constCheckinTypeOnlyReserve = '2';
+
+String constCheckinReserveRiRa = '0';
+String constCheckinReserveShift = '1';

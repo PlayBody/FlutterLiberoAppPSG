@@ -10,7 +10,8 @@ import 'connect_reserve_menu.dart';
 
 class ReserveMultiUser extends StatefulWidget {
   final String organId;
-  const ReserveMultiUser({required this.organId, Key? key}) : super(key: key);
+  final String isNoReserveType;
+  const ReserveMultiUser({required this.organId, required this.isNoReserveType, Key? key}) : super(key: key);
 
   @override
   _ReserveMultiUser createState() => _ReserveMultiUser();
@@ -55,11 +56,11 @@ class _ReserveMultiUser extends State<ReserveMultiUser> {
 
     if (userCount > 1) {
       Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return ReserveDateFirst(organId: widget.organId);
+        return ReserveDateFirst(organId: widget.organId, isNoReserveType: widget.isNoReserveType,);
       }));
     } else {
       Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return ConnectReserveMenus(organId: widget.organId);
+        return ConnectReserveMenus(organId: widget.organId, isNoReserveType: widget.isNoReserveType,);
       }));
     }
   }

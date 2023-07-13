@@ -14,8 +14,13 @@ import '../const.dart';
 
 class ClReserve {
   Future<List<TimeRegion>> loadReserveConditions(context, String organId,
-      String? staffId, String fromDate, String toDate, String timeDiff) async {
-    String apiUrl = apiBase + '/apireserves/loadReserveConditions';
+      String? staffId, String fromDate, String toDate, String isNoReserveType, String timeDiff) async {
+    String apiUrl;
+    if(isNoReserveType == constCheckinReserveRiRa) {
+      apiUrl = apiBase + '/apireserves/loadReserveConditions';
+    } else {
+      apiUrl = apiBase + '/apireserves/loadReserveShiftConditions';
+    }
 
     int sumTime = 0;
     globals.connectReserveMenuList.forEach((element) {
@@ -37,17 +42,44 @@ class ClReserve {
       'to_date': DateFormat('yyyy-MM-dd HH:mm:ss')
           .format(DateTime.parse(toDate).add(Duration(minutes: sumTime))),
       'user_id': globals.userId,
+      'staff_type': '${globals.selStaffType}',
     }).then((v) => {results = v});
     List<TimeRegion> regions = [];
 
     Map<String, dynamic> timeResults = {};
-    for (var item in results['regions']) {
+    List<dynamic> items = results['regions'];
+    int checkSteps = (sumTime % 5 == 0) ? sumTime ~/ 5 : sumTime ~/5 + 1;
+    int i, j;
+    for(i=0; i<items.length; i++){
+      Map<String, dynamic> item = items[i];
+      int a = int.parse(item['type'].toString());
+      if(a == 0 || a == 3){
+        continue;
+      }
+      for(j = 1; j<checkSteps; j++){
+        if(i + j >= items.length){
+          item['type'] = '3';
+          break;
+        } else {
+          int b = int.parse(items[i+j]['type'].toString());
+          if(a < b){
+            a = b;
+            item['type'] = '$a';
+            if(a == 3){
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    for (Map<String, dynamic> item in items) {
       String newTime = DateFormat('yyyy-MM-dd HH:00:00')
-          .format(DateTime.parse(item['time']));
+          .format(DateTime.parse(item['time'].toString()));
 
       if (int.parse(timeDiff) < 60)
         newTime = DateFormat('yyyy-MM-dd HH:mm:00')
-            .format(DateTime.parse(item['time']));
+            .format(DateTime.parse(item['time'].toString()));
 
       if (timeResults[newTime] == null) {
         timeResults[newTime] = {};
@@ -60,32 +92,32 @@ class ClReserve {
         }
       }
     }
-    Map<String, dynamic> finalResults = {};
+    // Map<String, dynamic> finalResults = {};
+    // timeResults.forEach((key, item) {
+    //   if (!DateTime.parse(key).isAfter(DateTime.parse(toDate))) {
+    //     if (item['type'] == '1' || item['type'] == '2') {
+    //       String _type = item['type'].toString();
+
+    //       for (int i = int.parse(timeDiff);
+    //           i < sumTime + int.parse(timeDiff);
+    //           i += int.parse(timeDiff)) {
+    //         String _key = DateFormat('yyyy-MM-dd HH:mm:ss')
+    //             .format(DateTime.parse(key).add(Duration(minutes: i)));
+
+    //         if (timeResults[_key]['type'] == '0' ||
+    //             timeResults[_key]['type'] == '3') {
+    //           _type = timeResults[_key]['type'];
+    //         }
+    //       }
+    //       finalResults[key] = item;
+    //       finalResults[key]['type'] = _type;
+    //     } else {
+    //       finalResults[key] = item;
+    //     }
+    //   }
+    // });
+
     timeResults.forEach((key, item) {
-      if (!DateTime.parse(key).isAfter(DateTime.parse(toDate))) {
-        if (item['type'] == '1' || item['type'] == '2') {
-          String _type = item['type'].toString();
-
-          for (int i = int.parse(timeDiff);
-              i < sumTime + int.parse(timeDiff);
-              i += int.parse(timeDiff)) {
-            String _key = DateFormat('yyyy-MM-dd HH:mm:ss')
-                .format(DateTime.parse(key).add(Duration(minutes: i)));
-
-            if (timeResults[_key]['type'] == '0' ||
-                timeResults[_key]['type'] == '3') {
-              _type = timeResults[_key]['type'];
-            }
-          }
-          finalResults[key] = item;
-          finalResults[key]['type'] = _type;
-        } else {
-          finalResults[key] = item;
-        }
-      }
-    });
-
-    finalResults.forEach((key, item) {
       var _cellBGColor = Color(0xfffdfdf6);
       var _cellText = '';
       var _textColor = Colors.grey;

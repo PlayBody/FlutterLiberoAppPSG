@@ -14,10 +14,11 @@ import '../../../model/stafflistmodel.dart';
 
 class ReserveDateSecond extends StatefulWidget {
   final String organId;
+  final String isNoReserveType;
   final String? staffId;
   final DateTime selTime;
   const ReserveDateSecond(
-      {required this.organId, this.staffId, required this.selTime, Key? key})
+      {required this.organId, required this.isNoReserveType, this.staffId, required this.selTime, Key? key})
       : super(key: key);
 
   @override
@@ -62,7 +63,7 @@ class _ReserveDateSecond extends State<ReserveDateSecond> {
     if (organTime['to_time'] != null) organToTime = organTime['to_time'];
 
     regions = await ClReserve().loadReserveConditions(
-        context, widget.organId, widget.staffId, _fromDate, _toDate, '5');
+        context, widget.organId, widget.staffId, _fromDate, _toDate, widget.isNoReserveType, '5');
 
     sfCalanderHeight = 30 *
             (int.parse(organToTime.split(':')[0]) -

@@ -32,7 +32,10 @@ class _ConnectReserveOrgan extends State<ConnectReserveOrgan> {
 
     if (organs.length == 1) {
       Navigator.push(context, MaterialPageRoute(builder: (_) {
-        return ReserveMultiUser(organId: organs.first.organId);
+        return ReserveMultiUser(
+          organId: organs.first.organId, 
+          isNoReserveType: organs.first.isNoReserveType,
+        );
       }));
     }
     return organs;
@@ -72,23 +75,30 @@ class _ConnectReserveOrgan extends State<ConnectReserveOrgan> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) {
-          // return ReserveMultiUser(organId: organ.organId);
-
-          globals.selStaffType = 0;
-          globals.menuSelectNumber = 1;
-          globals.reserveMultiUsers = [];
-          globals.connectReserveMenuList = [];
-          globals.reserveTime = 10;
-          globals.reserveUserCnt = 1;
-
-          return ConnectReserveMenus(organId: organ.organId);
+          if(organ.isNoReserveType == constCheckinReserveRiRa){
+            return ReserveMultiUser(
+              organId: organ.organId, 
+              isNoReserveType: constCheckinReserveRiRa
+            );
+          } else {
+            globals.selStaffType = 0;
+            globals.menuSelectNumber = 1;
+            globals.reserveMultiUsers = [];
+            globals.connectReserveMenuList = [];
+            globals.reserveTime = 10;
+            globals.reserveUserCnt = 1;
+            return ConnectReserveMenus(
+              organId: organ.organId, 
+              isNoReserveType: constCheckinReserveShift,
+            );
+          }
         }));
       },
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
-            Expanded(child: _getOrganImage(organ.organImage)),
+            Expanded(child: _getOrganImage(organ)),
             _getOrganTitle(organ)
           ],
         ),
@@ -100,17 +110,54 @@ class _ConnectReserveOrgan extends State<ConnectReserveOrgan> {
     );
   }
 
-  Widget _getOrganImage(imageUrl) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        image: imageUrl == null
-            ? DecorationImage(
-                image: AssetImage('images/no_image.jpg'), fit: BoxFit.cover)
-            : DecorationImage(
-                image: NetworkImage(organImageUrl + imageUrl),
-                fit: BoxFit.cover),
-      ),
+  Widget _getOrganImage(OrganModel organ) {
+    String? imageUrl = organ.organImage;
+    Color color = organ.isNoReserveType == constCheckinReserveRiRa 
+      ? Color.fromARGB(126, 255, 107, 107) 
+      : Color.fromARGB(127, 0, 114, 180);
+    return Stack(
+      children: [
+        Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.grey,
+            image: imageUrl == null
+                ? DecorationImage(
+                    image: AssetImage('images/no_image.jpg'), fit: BoxFit.cover)
+                : DecorationImage(
+                    image: NetworkImage(organImageUrl + imageUrl),
+                    fit: BoxFit.cover),
+          ),
+        ),
+        Positioned(
+          left: -20,
+          top: 60,
+          child: Container(
+            alignment: Alignment.center,
+            width: 115,
+            height: 30,
+            child: RotationTransition(
+              alignment: Alignment.topLeft,
+              turns: AlwaysStoppedAnimation(-45 / 360),
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: color,
+                ),
+                child: Text(
+                  organ.isNoReserveType == constCheckinReserveRiRa ? "出勤スタッフ" : "シフト枠",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 12
+                  ),
+                ),
+              ),
+            ),
+          )
+        )
+      ],
     );
   }
 
